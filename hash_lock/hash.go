@@ -199,3 +199,30 @@ func hash(key []byte) int {
 	}
 	return h
 }
+
+type Storage3 struct {
+	data map[string][]byte
+}
+
+func NewStorage3() *Storage1 {
+	return &Storage1{
+		data: make(map[string][]byte, 64),
+	}
+}
+
+func (s *Storage3) Put(key []byte, value []byte) {
+	k := bytes2string(key)
+
+	s.data[k] = value
+}
+
+func (s *Storage3) Get(key []byte) ([]byte, error) {
+	k := bytes2string(key)
+
+	v, ok := s.data[k]
+
+	if !ok {
+		return nil, ErrKeyNotExists
+	}
+	return v, nil
+}
